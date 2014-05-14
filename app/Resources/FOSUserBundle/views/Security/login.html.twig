@@ -1,0 +1,34 @@
+{% extends 'AcmeDemoBundle::base.html.twig' %}
+
+{% block body %}
+{% if error %}
+    <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+{% endif %}
+
+<form action="{{ path("fos_user_security_check") }}" method="post" class="form-horizontal ">
+    {{ bootstrap_set_style('horizontal') }}
+
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+    <div class="form-group">
+        <label class="control-label required" for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+        <input type="text" id="username" name="_username" value="" required="required" autocomplete="off" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label class="control-label required" for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+        <input type="password" id="password" name="_password" required="required"  class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label class="control-label required" for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+        <input type="checkbox" id="remember_me" name="_remember_me" value="on"  class="form-control" />
+    </div>
+
+    <fieldset>
+        <input class="btn btn-success" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+    </fieldset>
+
+    {{ bootstrap_set_style('') }}
+</form>
+{% endblock body %}

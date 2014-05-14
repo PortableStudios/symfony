@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>{% block title %}Acme Demo Bundle{% endblock %}</title>
+        {% stylesheets
+            '%kernel.root_dir%/../vendor/twbs/bootstrap/less/bootstrap.less'
+            '@AcmeDemoBundle/Resources/public/css/*'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+
+        {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' -%}
+        <style>
+
+        </style>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block navbar %}
+            {% embed "@AcmeDemo/nav.html.twig" %}{% endembed %}
+        {% endblock %}
+
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for key, message in messages %}
+                <div class="flash-{{ type }}">
+                    {{ message|trans({}, 'FOSUserBundle') }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="container">
+{% block body %}
+    {% block content %}{% endblock %}
+{% endblock %}
+        </div>
+{% block javascripts %}
+    {% javascripts
+        'js/jquery.js'
+        'js/bootstrap.js'
+        '@AcmeDemoBundle/Resources/public/js/*'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+    </body>
+</html>
